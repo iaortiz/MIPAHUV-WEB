@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-8">
       <div class="row">
-        <h2 style=" padding:  1em;">Mis Recursos</h2>
+        <h2 style=" padding:  0.5em;">Mis Recursos</h2>
       </div>
       <div class="overflow-auto cards-wrapper" *ngIf="resources.length > 0; else noresources">
 
@@ -12,7 +12,7 @@
             <div class="card-body">
 
               <p class="card-text"> <strong>Recurso: </strong>{{resource.name}}</p>
-              <p class="card-text"><strong>Fecha de publicación: </strong>12-12-1222</p>
+              <p class="card-text"><strong>Fecha de publicación: </strong>08/01/2021</p>
               <p class="card-text"><strong>Descripcion: </strong>{{resource.description}}.</p>
               <div class="d-flex flex-row-reverse">
                 <div class="p-2">
@@ -54,7 +54,8 @@
         </div>
       </div>
       <div class="row" style="margin-top: 20em;margin-left: 3em; padding: 1em;">
-        <button type="button" class="btn btn-warning"><strong>Añadir recurso</strong></button>
+        <a routerLink="/resource-form"><button type="button" class="btn btn-warning"><strong>Añadir
+              recurso</strong></button></a>
       </div>
     </div>
   </div>

@@ -1,3 +1,4 @@
+import { ResourceFormComponent } from './../resource-form/resource-form.component';
 import { Resource } from './../../models/resources.interface';
 import { ResourceService } from './../../services/resource.service';
 import { Component, TemplateRef, OnInit } from '@angular/core';
@@ -35,6 +36,10 @@ export class ResourcesComponent implements OnInit {
   openModal(template: TemplateRef<any>, resource: Resource) {
     this.resource = resource;
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  openModalResource() {
+    this.modalRef = this.modalService.show(ResourceFormComponent);
   }
 
   confirm(): void {

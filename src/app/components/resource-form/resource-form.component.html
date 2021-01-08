@@ -1,11 +1,13 @@
-<!-- Add Resource -->
-
 <button type="button" class="btn btn-primary" (click)="openModal()">Create template modal</button>
 
 <div bsModal #resources="bs-modal" role="dialog" aria-labelledby="dialog-child-name" class="modal fade">
   <div>
     <div class="modal-body">
-      <div class="container p-5" style="background-color: white;">
+      <div class="container" style="background-color: white;">
+        <div class="modal-header ">
+          <h3 class="modal-title">Crear Recurso</h3>
+        </div>
+        <br>
         <div class="mb-3 row">
           <label for="nameResource" class="col-sm-2 col-form-label">Nombre del recurso:</label>
           <div class="col-sm-10">
