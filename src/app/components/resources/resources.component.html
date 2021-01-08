@@ -1,1 +1,31 @@
-<p>resources works!</p>
+  <!-- Delete Resource -->
+  <!-- Button trigger modal -->
+  
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteResource">
+    Eliminar Recurso
+  </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteResource" tabindex="-1" aria-labelledby="deleteResourceLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="deleteResourceLabel">Eliminar recurso</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- InModal  -->
+            <div class="modal-body">
+              <div class="container" style="background-color: white;">
+                <div class="mb-3 row">
+                    <h4><strong>¿Desea borrar este recurso?</strong></h4>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-danger"><strong>Eliminar</strong></button>
+            </div>
+          </div>
+        </div>
+    </div>
+
