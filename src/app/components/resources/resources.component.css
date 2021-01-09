@@ -2,3 +2,27 @@
   max-height: 70vh;
   overflow-y: scroll;
 }
+
+.delete:hover {
+  color: #a71930;
+} /* CSS link hover (green) */
+
+.selector::-webkit-scrollbar {
+  width: 0.5em;
+  background-color: rgba(228, 228, 228, 0.4);
+}
+.selector::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: rgba(228, 228, 228, 0.4);
+}
+.selector::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(182, 182, 182, 0.4);
+  background-image: -webkit-linear-gradient(
+    90deg,
+    transparent,
+    rgba(182, 182, 182, 0.4) 25%,
+    transparent,
+    transparent
+  );
+}

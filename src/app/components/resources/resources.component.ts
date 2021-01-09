@@ -39,16 +39,11 @@ export class ResourcesComponent implements OnInit {
   }
 
   openModalResource() {
-    this.modalRef = this.modalService.show(ResourceFormComponent);
+    this.modalRef = this.modalService.show(ResourceFormComponent, { class: 'modal-lg' });
   }
 
   confirm(): void {
     this.deleteResource();
     this.modalRef.hide();
   }
-
-  decline(): void {
-    this.modalRef.hide();
-  }
-
 }
