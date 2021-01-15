@@ -33,6 +33,10 @@ export class ResourceService {
     }))
   }
 
+  getResources() {
+    return this.resources;
+  }
+
   async addResource(resource: Resource) {
     this.resourcesCollection.add(resource);
   }
