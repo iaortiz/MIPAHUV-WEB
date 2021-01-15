@@ -1,0 +1,14 @@
+<div>
+    <form (ngSubmit)="addResource()">
+
+        <input type="text" name="name" [(ngModel)]="resource.name">
+        <input type="text" name="description" [(ngModel)]="resource.description">
+        <select name="type" [(ngModel)]="type">
+            <option [value]="type" *ngFor="let type of types">{{type}}</option>
+        </select>
+        <input type="file" class="custom-file" (change)="setEvent($event)">
+        <button type="submit">
+            Guardar
+        </button>
+    </form>
+</div>
