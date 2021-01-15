@@ -1,0 +1,21 @@
+<div *ngIf="resources.length > 0; else noresources">
+    <ul>
+        <li *ngFor="let resource of resources">
+            {{resource.name}}<br>
+            {{resource.description}}<br>
+            {{resource.source}}<br>
+            {{resource.type}}<br>
+
+            <button (click)="deleteResource($event, resource)">
+                Eliminar
+            </button>
+            <button (click)="updateResource($event, resource)">
+                Editar
+            </button>
+        </li>
+    </ul>
+</div>
+
+<ng-template #noresources>
+    <p>No ha cargado aun Recursos Educativos</p>
+</ng-template>
