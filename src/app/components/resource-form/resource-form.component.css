@@ -7,17 +7,13 @@
   height: 50px;
   animation: spin 1s linear infinite;
 }
-.container {
-  border-radius: 15px;
+:host ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #003f72;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.container {
+  border-radius: 15px;
 }
 
 .resource {

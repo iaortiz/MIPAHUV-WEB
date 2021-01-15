@@ -45,7 +45,6 @@ export class ResourceFormComponent implements OnInit {
     })
     this.resourceService.uploadPercent.subscribe(uploadPercent => {
       this.uploadPercent = uploadPercent;
-      console.log(this.uploadPercent);
     })
   }
 

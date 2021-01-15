@@ -80,7 +80,12 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cancelar</button>
         <button type="button" class="btn btn-warning" (click)="addResource()"><strong>Guardar</strong></button>
-        <div *ngIf="isLoading" class="loader"></div>
+        <div *ngIf="isLoading && uploadPercent>0">
+          <mat-progress-spinner [value]="uploadPercent" [diameter]="45" [strokeWidth]="7">
+          </mat-progress-spinner>
+        </div>
+      </div>
+      <div>
       </div>
     </div>
   </div>

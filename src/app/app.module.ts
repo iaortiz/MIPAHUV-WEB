@@ -13,6 +13,10 @@ import { ResourceFormComponent } from './components/resource-form/resource-form.
 import { ResourcesComponent } from './components/resources/resources.component';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-
+    ProgressbarModule.forRoot(),
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [ResourceFormComponent],
   providers: [],
