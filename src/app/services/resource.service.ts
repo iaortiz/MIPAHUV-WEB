@@ -4,11 +4,14 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore'
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
+import { EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourceService {
+
+  public error: EventEmitter<boolean> = new EventEmitter();
   isLoading = new BehaviorSubject<boolean>(false);
   loader = this.isLoading.asObservable();      // Observable para detectar cambios en el estado del boton
   collectionName = 'resources'
@@ -37,6 +40,7 @@ export class ResourceService {
   }
 
   async addResource(resource: Resource) {
+    resource.createdAt = new Date();
     this.resourcesCollection.add(resource).then(() => {
       this.isLoading.next(false);   // cambiamos el estado del observable
     });
@@ -50,27 +54,37 @@ export class ResourceService {
 
   updateResource(resource: Resource) {
     this.resourceDoc = this.db.doc(`${this.collectionName}/${resource.id}`)
-    this.resourceDoc.update(resource);
+    delete resource.id;
+    this.resourceDoc.update(resource).then(() => {
+      this.isLoading.next(false);
+    });
   }
 
   onUploadFile(resource: Resource, e: any) {
+    console.log(resource);
     this.isLoading.next(true);
-    const id = Math.random().toString(36).substring(2);
-    const file = e.target.files[0];
-    let filePath: string;
-    (resource.category !== 'video') ? filePath = 'documents' : filePath = 'videos';
+    if (e) {
+      const id = Math.random().toString(36).substring(2);
+      const file = e.target.files[0];
+      let filePath: string;
+      (resource.category !== 'video') ? filePath = 'documents' : filePath = 'videos';
 
-    filePath = `${filePath}/${id}`;
-    const ref = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, file);
-    this.uploadPercent = task.percentageChanges();
-    task.snapshotChanges().pipe(finalize(() => {
-      ref.getDownloadURL().subscribe(urlFile => {
-        resource.source = urlFile;
-        this.addResource(resource);
-      });
-    })
-    ).subscribe();
+      filePath = `${filePath}/${id}`;
+      const ref = this.storage.ref(filePath);
+      const task = this.storage.upload(filePath, file);
+      this.uploadPercent = task.percentageChanges();
+      task.snapshotChanges().pipe(finalize(() => {
+        ref.getDownloadURL().subscribe(urlFile => {
+          resource.source = urlFile;
+          (resource.id) ? this.updateResource(resource) : this.addResource(resource);
+        });
+      })
+      ).subscribe();
+    }
+    else {
+      (resource.id) ? this.updateResource(resource) : console.error('Se debe cargar un archivo');
+      this.isLoading.next(false);
+    }
   }
 
 

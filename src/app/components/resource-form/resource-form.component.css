@@ -19,3 +19,7 @@
     transform: rotate(360deg);
   }
 }
+
+.resource {
+  word-wrap: break-word;
+}

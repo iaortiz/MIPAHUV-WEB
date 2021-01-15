@@ -31,6 +31,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AppRoutingModule,
 
   ],
+  entryComponents: [ResourceFormComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
