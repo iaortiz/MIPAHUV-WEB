@@ -1,0 +1,21 @@
+.loader {
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #003f72;
+  border-bottom: 10px solid #eaab00;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+:host ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #003f72;
+}
+
+.container {
+  border-radius: 15px;
+}
+
+.resource {
+  word-wrap: break-word;
+}
