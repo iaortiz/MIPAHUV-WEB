@@ -1,4 +1,4 @@
-import { Resource } from './../../models/resource.interface';
+import { Resource } from './../../models/resources.interface';
 import { Component, OnInit } from '@angular/core';
 import { ResourceService } from '../../services/resource.service';
 
