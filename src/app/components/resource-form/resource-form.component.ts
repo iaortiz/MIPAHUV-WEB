@@ -30,5 +30,18 @@ export class ResourceFormComponent implements OnInit {
     this.event = e;
   }
 
+  validateForm(): boolean {
+    if (this.resource.name && this.resource.category && this.resource.description && this.resource.subject) {
+      if (this.event || this.resource.source) {
+        return false
+      } else {
+        return true;
+      }
+    }
+    else {
+      return true;
+    }
+  }
+
 
 }
