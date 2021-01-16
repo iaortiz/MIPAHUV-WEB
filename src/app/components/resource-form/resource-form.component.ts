@@ -48,6 +48,14 @@ export class ResourceFormComponent implements OnInit {
     })
   }
 
+  setEvent(e: any) {
+    this.event = e;
+  }
+
+  deleteResource() {
+    delete this.resource.source;
+  }
+
   validateForm(): boolean {
     if (this.resource.name && this.resource.category && this.resource.description && this.resource.subject) {
       if (this.event || this.resource.source) {
@@ -59,14 +67,6 @@ export class ResourceFormComponent implements OnInit {
     else {
       return true;
     }
-  }
-
-  setEvent(e: any) {
-    this.event = e;
-  }
-
-  deleteResource() {
-    delete this.resource.source;
   }
 
   reset() {
