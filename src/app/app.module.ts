@@ -22,7 +22,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestore,
     AngularFirestoreModule,
     AngularFireStorageModule
   ],
