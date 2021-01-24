@@ -1,14 +1,93 @@
+<!-- <button type="button" class="btn btn-primary" (click)="openModal()">Create template modal</button> -->
 <div>
-    <form (ngSubmit)="addResource()">
+  <div class="container">
+    <div class="modal-body">
+      <div class="container" style="background-color: white;">
+        <div class="modal-header ">
+          <h3 class="modal-title">{{title}} Recurso</h3>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
 
-        <input type="text" name="name" [(ngModel)]="resource.name">
-        <input type="text" name="description" [(ngModel)]="resource.description">
-        <select name="type" [(ngModel)]="type">
-            <option [value]="type" *ngFor="let type of types">{{type}}</option>
-        </select>
-        <input type="file" class="custom-file" (change)="setEvent($event)">
-        <button type="submit">
-            Guardar
-        </button>
-    </form>
+        </div>
+        <br>
+        <div class="mb-3 row">
+          <label for="nameResource" class="col-sm-2 col-form-label">Nombre del recurso:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="nameResource" [(ngModel)]="resource.name">
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="category" class="col-sm-2 col-form-label">Categoria:</label>
+          <div class="col-sm-10">
+            <select name="category" class="form-select" aria-label="Default select example"
+              [(ngModel)]="resource.category">
+              <option [value]="category" *ngFor="let category of categories">{{category}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="software" class="col-sm-2 col-form-label">Programa relacionado:</label>
+          <div class="col-sm-10">
+            <select name="subject" class="form-select" aria-label="Default select example"
+              [(ngModel)]="resource.subject">
+              <option [value]="subject" *ngFor="let subject of subjects">{{subject}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3 form-group row">
+          <label for="docFile" class="col-sm-2 col-form-label">Archivo multimedia:</label>
+          <div class="col-sm-10">
+            <div class="custom-file" *ngIf="!resource.source; else resourceUploaded">
+              <input #inputFile type="file" class="custom-file" id="exampleFormControlFile1"
+                (change)="setEvent($event)">
+            </div>
+            <ng-template #resourceUploaded>
+              <div class="resource row">
+                <div class="ml-5 mr-3"><a href={{resource.source}} target="_blank">Ver recurso</a></div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="deleteResource()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 row ">
+        <label for="description" class="col-sm-2 col-form-label">Descripción:</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" id="description" rows="3" [(ngModel)]="resource.description"></textarea>
+        </div>
+      </div>
+      <div *ngIf="error">
+        <div class="alert alert-danger" role="alert">
+          ¡Ha ocurrido un <strong>error!</strong> al guardar el recurso
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="isUploadSuccessful && resource.id">
+        <div class="alert alert-success" role="alert">
+          ¡El recurso se ha guardado con <strong>éxito!</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cancelar</button>
+        <button type="button" class="btn btn-warning" [disabled]="validateForm()"
+          (click)="addResource()"><strong>Guardar</strong></button>
+        <div *ngIf="isLoading && uploadPercent>0">
+          <mat-progress-spinner [value]="uploadPercent" [diameter]="45" [strokeWidth]="7">
+          </mat-progress-spinner>
+        </div>
+      </div>
+      <div>
+      </div>
+    </div>
+  </div>
 </div>

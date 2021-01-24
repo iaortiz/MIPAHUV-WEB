@@ -1,6 +1,10 @@
-import { Resource } from './../../models/resource.interface';
-import { Component, OnInit } from '@angular/core';
-import { ResourceService } from '../../services/resource.service';
+import { Subscription } from 'rxjs';
+import { ResourceService } from './../../services/resource.service';
+import { Resource } from './../../models/resources.interface';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-resource-form',
@@ -8,27 +12,75 @@ import { ResourceService } from '../../services/resource.service';
   styleUrls: ['./resource-form.component.css']
 })
 export class ResourceFormComponent implements OnInit {
+  @ViewChild('resources', { static: false }) resourceModal: ModalDirective;
+  @ViewChild('inputFile', { static: false }) myInputVariable: ElementRef;
 
+  title: string;
+  subscription: Subscription;
+  isLoading = false;
+  isUploadSuccessful = false;
   resource = {} as Resource;
-  types = ['video', 'documento']; // ... Agregar mas tipos
-  type: string;
+  resourceCopy = {} as Resource;
+  categories = ['video', 'documento']; // ... Agregar mas tipos
+  subjects = ['Programacion avanzada', 'Ingenieria de requisitos', 'Gestion de Proyectos']
   files = [];
   event: any;
+  error = false;
+  uploadPercent = 0;
+  cancel: EventEmitter<any> = new EventEmitter();
 
-  constructor(public resourceService: ResourceService) { }
-
-  ngOnInit() {
-  };
+  constructor(private modalService: BsModalService, public resourceService: ResourceService, public modalRef: BsModalRef) { }
 
   addResource() {
-    this.resource.type = this.type;
-    this.resourceService.onUploadFile(this.resource, this.event)
-    this.resource = {} as Resource;
+    this.isLoading = true;
+    this.isUploadSuccessful = false;
+    this.resourceService.onUploadFile(this.resource, this.event);
+    this.resourceService.isLoading.subscribe(isLoading => {
+      this.isLoading = isLoading;
+      this.isUploadSuccessful = !isLoading;
+      if (this.isUploadSuccessful) {
+        this.resource = {} as Resource;
+        this.reset(); // Eliminar el archivo de el input
+      }
+    })
+    this.resourceService.uploadPercent.subscribe(uploadPercent => {
+      this.uploadPercent = uploadPercent;
+    })
   }
 
   setEvent(e: any) {
     this.event = e;
   }
 
+  deleteResource() {
+    delete this.resource.source;
+  }
 
+  validateForm(): boolean {
+    if (this.resource.name && this.resource.category && this.resource.description && this.resource.subject) {
+      if (this.event || this.resource.source) {
+        return false
+      } else {
+        return true;
+      }
+    }
+    else {
+      return true;
+    }
+  }
+
+  reset() {
+    if (this.resource.id) {
+      this.myInputVariable.nativeElement.value = '';
+    }
+  }
+
+  ngOnInit() {
+    this.resourceCopy = this.resource;
+  }
+
+  closeModal() {
+    this.cancel.emit(this.resourceCopy);
+    this.modalRef.hide();
+  }
 }
